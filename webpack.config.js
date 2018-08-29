@@ -11,9 +11,10 @@ const plugins = [new HtmlWebpackPlugin(HtmlConfig), new MiniCssExtractPlugin(), 
   { from: __dirname + '/static', to: __dirname + deploy + '' }
 ])];
 
+const build_mode = process.env.WEBPACK_SERVE ? 'development' : 'production';
 
 module.exports = {
-  mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
+  mode: build_mode,
   stats: 'errors-only',
   output: {
     path: __dirname + deploy
@@ -24,6 +25,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.hxml$/,
+        loader: 'haxe-loader'
       },
       {
         test: /\.js$/,

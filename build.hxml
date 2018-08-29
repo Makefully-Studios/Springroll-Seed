@@ -1,0 +1,4 @@
+-lib haxe-loader
+-cp src
+-js out.js
+-main App
