@@ -3,11 +3,14 @@
 Developers should use SpringRoll Seed as a starting point for games projects. It comes bundled with Webpack, Babel, and a few node modules to streamline development.
 
 ## Setup
+Inorder to use springroll with haxe you'll have to have Node, Npm, Haxe and Haxelib installed.
 
 ```
 $ git clone https://github.com/SpringRoll/Springroll-Seed.git my_project
 
 $ cd my_project
+
+$ haxelib install haxe-loader
 
 $ npm install
 ```
