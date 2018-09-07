@@ -6,7 +6,7 @@ Developers should use SpringRoll Seed as a starting point for games projects. It
 Inorder to use springroll with haxe you'll have to have Node, Npm, Haxe and Haxelib installed.
 
 ```
-$ git clone https://github.com/SpringRoll/Springroll-Seed.git my_project
+$ git clone -o template https://github.com/SpringRoll/Springroll-Seed.git my_project
 
 $ cd my_project
 
@@ -14,6 +14,9 @@ $ npm install
 
 $ haxelib install haxe-loader
 ```
+From here you can add your own remote origin by typing `git remote add origin URL.git`.
+
+__Note__ To receive Springroll-Seed updates, use 'git pull template'.
 
 ## Commands
 
@@ -55,6 +58,12 @@ In the case where you wish to include static files in your project, SpringRoll S
 These files will not be modified by Webpack's build process.
 
 During development you can access these files just as you would during production. You do not need to include the `static` directory as part of the file path.
+
+```html
+<link rel="icon" href="favicon.ico"/> <!-- Correct -->
+<link rel="icon" href="../static/favicon.ico"/> <!-- Incorrect -->
+<link rel="icon" href="/static/favicon.ico"/> <!-- Incorrect -->
+```
 
 ### Dev server
 
