@@ -10,9 +10,9 @@ $ git clone https://github.com/SpringRoll/Springroll-Seed.git my_project
 
 $ cd my_project
 
-$ haxelib install haxe-loader
-
 $ npm install
+
+$ haxelib install haxe-loader
 ```
 
 ## Commands
