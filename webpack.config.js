@@ -121,7 +121,7 @@ module.exports = env => {
             {
               loader: 'file-loader',
               options: {
-                outputPath: path.join(deploy + '/assets/audio/')
+                outputPath: path.join(deploy + '/assets/audio')
               }
             }
           ]
@@ -132,7 +132,7 @@ module.exports = env => {
             {
               loader: 'file-loader',
               options: {
-                outputPath: path.join(deploy + '/assets/video/')
+                outputPath: path.join(deploy + '/assets/video')
               }
             }
           ]
