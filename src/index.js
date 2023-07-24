@@ -1,5 +1,3 @@
-/* global require */
-import './components.js';
 import './styles.css';
 import {Game} from 'platypus';
 import unpack from './spritesheets.js';
@@ -129,6 +127,8 @@ const game = new Game(config, {
     images: 'assets/images/',
     name: packageData.name,
     version: packageData.version
+}, () => {
+    console.log('game loaded');
 });
 
 game.loadScene('title-scene');

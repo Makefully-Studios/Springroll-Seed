@@ -126,7 +126,7 @@ const
         
         // Handle one-to-one unlisted or nonexistent sprite sheets
         for (frame in frames) {
-            if (frames.hasOwnProperty(frame)) {
+            if (Object.prototype.hasOwnProperty.call(frames, frame)) {
                 key = createKey(frame);
                 
                 if (imageMap[key]) {

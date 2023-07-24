@@ -6,15 +6,16 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlConfig = require(path.join(__dirname, 'html.config'));
 const CleanPlugin = require('clean-webpack-plugin');
 const os = require('os');
-const deploy = path.join(__dirname, 'deploy'),
-    webpack = require('webpack');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const deploy = path.join(__dirname, 'deploy');
 
-module.exports = env => {
+const isProduction = process.env.NODE_ENV == "production";
+
+// keep the env param to be explicit, eslint disable should be removed when template is in use
+// eslint-disable-next-line no-unused-vars
+module.exports = (env) => {
   const plugins = [
     new CleanPlugin.CleanWebpackPlugin(),
-    new webpack.ProvidePlugin({ // Needed to import pixi-spine correctly.
-      PIXI: 'pixi.js'
-    }),
     new HtmlWebpackPlugin(HtmlConfig),
     new MergeJsonWebpackPlugin({
         "output": {
@@ -26,8 +27,13 @@ module.exports = env => {
             ]
         }
     }),
-    new MiniCssExtractPlugin(),
-    new CopyPlugin([{ from: path.join(__dirname + '/static'), to: deploy }]),
+    new MiniCssExtractPlugin({ filename: 'css/game.style.css' }),
+    new CopyPlugin({
+      patterns: [
+        { from: path.join(__dirname + '/static'), to: deploy }
+      ]
+    }),
+    new ESLintPlugin()
   ];
 
   // Get running network information
@@ -55,7 +61,7 @@ module.exports = env => {
 
   return {
     stats: 'errors-only',
-    mode: env.dev ? 'development' : 'production',
+    mode: isProduction ? 'production':'development',
     resolve: {
         alias: {
             config: path.join(__dirname, 'node_modules/platypus/src/config', env.dev ? 'development' : 'production')
@@ -63,14 +69,14 @@ module.exports = env => {
     },
     devServer: {
       open: true,
-      overlay: true,
+      client: { overlay: true },
       host: '0.0.0.0',
-      public: 'localhost:8080',
-      contentBase: path.join(__dirname, '/static')
+      port: 8080,
+      static: path.join(__dirname, '/static')
     },
     context: path.resolve(__dirname, 'src'),
 
-    entry: ['@babel/polyfill', path.join(__dirname, '/src/index.js')],
+    entry: path.join(__dirname, '/src/index.js'),
     output: {
       filename: 'js/game.bundle.js',
       path: deploy
@@ -90,7 +96,7 @@ module.exports = env => {
         {
           test: /\.js$/,
           exclude: /(node_modules\/(?!platypus|recycle)|bower_components)/,
-          use: ['babel-loader', 'eslint-loader']
+          use: ['babel-loader']
         },
         {
           test: /\.(otf|woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -110,7 +116,7 @@ module.exports = env => {
             {
               loader: 'file-loader',
               options: {
-                outputPath: path.join(deploy + 'assets/image')
+                outputPath: './assets/image'
               }
             }
           ]
@@ -136,7 +142,12 @@ module.exports = env => {
               }
             }
           ]
-        }
+        },
+        {
+          test: /\.js$/,
+          enforce: 'pre',
+          use: ['source-map-loader'],
+        },
       ]
     }
   };
