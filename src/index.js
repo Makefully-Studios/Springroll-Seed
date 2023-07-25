@@ -123,10 +123,9 @@ const game = new Game(config, {
         backgroundColor: 0x101010,
         clearView: true
     },
-    audio: 'assets/audio/',
-    images: 'assets/images/',
     name: packageData.name,
-    version: packageData.version
+    version: packageData.version,
+    dev: true
 }, () => {
     console.log('game loaded');
 });
