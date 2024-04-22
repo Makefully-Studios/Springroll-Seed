@@ -100,18 +100,13 @@ module.exports = (env) => {
         },
         {
           test: /\.(otf|woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                name: '[name].[ext]',
-                useRelativePath: true
-              }
-            }
-          ]
+          type: 'asset/resource',
+          dependency: {
+              not: ['url']
+          }
         },
         {
-          test: /\.(png|jpg|gif)$/,
+          test: /\.(png|jpg|gif|svg)$/,
           use: [
             {
               loader: 'file-loader',
