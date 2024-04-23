@@ -66,7 +66,7 @@ const
                 props[fileName] = result;
             }
 
-            if (fullName !== fileName) {
+            if (fullName && fullName !== fileName) {
                 props[fullName] = result;
             }
         });
