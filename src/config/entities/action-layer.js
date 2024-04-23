@@ -9,11 +9,11 @@ export default {
         "type": "HandlerRender"
     }, {
         "type": "Camera",
-        "width": 4000,
-        "height": 4000,
+        "width": 1024,
+        "height": 1024,
         "overflow": true,
-        "x": 4300,
-        "y": 2000,
+        "x": 512,
+        "y": 512,
         "z": 1,
         "transitionX": 0,
         "transitionY": 0,
