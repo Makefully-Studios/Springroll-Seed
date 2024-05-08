@@ -107,36 +107,24 @@ module.exports = (env) => {
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                outputPath: './assets/image'
-              }
-            }
-          ]
+          type: 'asset/resource',
+          generator: {
+            filename: './assets/image/[hash][ext][query]'
+          }
         },
         {
           test: /\.(mp3|ogg)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                outputPath: path.join(deploy + '/assets/audio')
-              }
-            }
-          ]
+          type: 'asset/resource',
+          generator: {
+            filename: './assets/audio/[hash][ext][query]'
+          }
         },
         {
           test: /\.(mp4)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {
-                outputPath: path.join(deploy + '/assets/video')
-              }
-            }
-          ]
+          type: 'asset/resource',
+          generator: {
+            filename: './assets/video/[hash][ext][query]'
+          }
         },
         {
           test: /\.js$/,
