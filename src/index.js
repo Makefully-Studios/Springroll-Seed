@@ -1,3 +1,4 @@
+/* global platypus */
 import './styles.css';
 import {Game} from 'platypus';
 import unpack from './spritesheets.js';
@@ -15,70 +16,61 @@ const
         entities: true,
         scenes: true
     },
-    importJS = function (r, config) {
-        r.keys().forEach((key) => {
-            var arr = key.split('/'),
-                last = arr.length - 1,
-                file = arr[last],
-                lastDot = file.lastIndexOf('.'),
-                fileName = file.substring(0, lastDot),
-                fileType = file.substring(lastDot + 1).toLowerCase(),
-                fullName = '',
-                i = 0,
-                props = config;
-            let result = null;
-            
-            for (i = 0; i < last; i++) {
-                if (arr[i] !== '.') {
-                    if (!props[arr[i]]) {
-                        props[arr[i]] = {};
-                    }
+    importJS = (r, config) => r.keys().forEach((key) => {
+        const
+            arr = key.split('/'),
+            last = arr.length - 1,
+            file = arr[last],
+            lastDot = file.lastIndexOf('.'),
+            fileName = file.substring(0, lastDot),
+            fileType = file.substring(lastDot + 1).toLowerCase(),
+            result = fileType === 'js' ? r(key).default : fileType === 'json' ? r(key) : null;
+        let fullName = '',
+            props = config;
+        
+        for (let i = 0; i < last; i++) {
+            if (arr[i] !== '.') {
+                if (!props[arr[i]]) {
+                    props[arr[i]] = {};
+                }
 
-                    props = props[arr[i]];
+                props = props[arr[i]];
 
-                    if (flatten[arr[i]]) {
-                        for (let j = i + 1; j < arr.length - 1; j++) {
-                            fullName += `${arr[j]}-`;
-                        }
-                        fullName += fileName;
-                        break;
+                if (flatten[arr[i]]) {
+                    for (let j = i + 1; j < arr.length - 1; j++) {
+                        fullName += `${arr[j]}-`;
                     }
+                    fullName += fileName;
+                    break;
                 }
             }
+        }
 
-            if (fileType === 'js') {
-                result = r(key).default;
-            } else if (fileType === 'json') {
-                result = r(key);
-            }
-
-            // We have a duplicate
-            if (props[fileName]) {
-                if (Array.isArray(props[fileName])) {
-                    props[fileName].push(result);
-                } else {
-                    props[fileName] = [
-                        props[fileName],
-                        result
-                    ];
-                }                
+        // We have a duplicate
+        if (props[fileName]) {
+            if (Array.isArray(props[fileName])) {
+                props[fileName].push(result);
             } else {
-                props[fileName] = result;
-            }
+                props[fileName] = [
+                    props[fileName],
+                    result
+                ];
+            }                
+        } else {
+            props[fileName] = result;
+        }
 
-            if (fullName && fullName !== fileName) {
-                props[fullName] = result;
-            }
-        });
-    },
-    importTEXT = function (r, config) {
-        r.keys().forEach((key) => {
-            var arr = key.split('/'),
-                last = arr.length - 1;
-            
-            config[arr[last].substring(0, arr[last].length - 6)] = r(key).default;
-        });
-    };
+        if (fullName && fullName !== fileName) {
+            props[fullName] = result;
+        }
+    }),
+    importTEXT = (r, config) => r.keys().forEach((key) => {
+        const
+            arr = key.split('/'),
+            last = arr[arr.length - 1];
+        
+        config[last.substring(0, last.length - 6)] = r(key).default;
+    });
 
 // Base configuration
 importJS(require.context(
@@ -127,7 +119,7 @@ const game = new Game(config, {
     version: packageData.version,
     dev: true
 }, () => {
-    console.log('game loaded');
+    platypus.debug.log('game loaded');
 });
 
 game.loadScene('title-scene');

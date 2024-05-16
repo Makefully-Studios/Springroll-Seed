@@ -3,24 +3,21 @@ const
         return path.replace(projectSrc, '').replace('.json', '').replace('.png', '');
     },
     createFramesArray = function (frame, base) {
-        var i = 0,
+        const
             fw = frame.width,
             fh = frame.height,
             rx = frame.regX || 0,
             ry = frame.regY || 0,
-            w = 0,
-            h = 0,
-            x = 0,
-            y = 0,
+
+            // Subtract the size of a frame so that margin slivers aren't returned as frames.
+            w = base.sourceSize.w - fw,
+            h = base.sourceSize.h - fh,
+
             frames = [];
 
-        // Subtract the size of a frame so that margin slivers aren't returned as frames.
-        w = base.sourceSize.w - fw;
-        h = base.sourceSize.h - fh;
-
-        for (y = 0; y <= h; y += fh) {
-            for (x = 0; x <= w; x += fw) {
-                frames.push([x, y, fw, fh, i, rx, ry]);
+        for (let y = 0; y <= h; y += fh) {
+            for (let x = 0; x <= w; x += fw) {
+                frames.push([x, y, fw, fh, 0, rx, ry]);
             }
         }
 
@@ -36,7 +33,7 @@ const
         };
     },
     updateImageIndex = function (frames, fromIndex, toIndex) {
-        var i = frames.length;
+        let i = frames.length;
         
         while (i--) {
             if (frames[i][4] === fromIndex) {
@@ -47,14 +44,12 @@ const
         }
     },
     reposition = function (ss, img, s, key) {
-        var f = null,
+        let i = ss.images.length,
             str = '',
-            i = ss.images.length,
             imageIndex = 0;
 
         while (i--) {
-            str = createKey(ss.images[i]);
-            if (str === key) {
+            if (createKey(ss.images[i]) === key) {
                 imageIndex = i;
                 break;
             }
@@ -65,7 +60,9 @@ const
         }
 
         for (i = 0; i < ss.frames.length; i++) {
-            f = ss.frames[i];
+            const
+                f = ss.frames[i];
+
             if (f[4] === imageIndex) {
                 if (s.trimmed) {
                     if (f[0] < s.spriteSourceSize.x) {
@@ -119,18 +116,18 @@ const
         return ss;
     },
     updatePack = function (pack, spriteSheets, imageMap) {
-        var i = 0,
-            frame = null,
-            frames = pack.frames,
-            key = '';
+        const
+            {frames} = pack;
         
         // Handle one-to-one unlisted or nonexistent sprite sheets
-        for (frame in frames) {
+        for (const frame in frames) {
             if (Object.prototype.hasOwnProperty.call(frames, frame)) {
-                key = createKey(frame);
+                const
+                    key = createKey(frame);
                 
                 if (imageMap[key]) {
-                    i = imageMap[key].length;
+                    let i = imageMap[key].length;
+
                     while (i--) {
                         reposition(imageMap[key][i], pack.meta.image, frames[frame], key);
                     }
