@@ -1,6 +1,6 @@
 {
   "name": "springroll-seed",
-  "version": "1.3.1",
+  "version": "2.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,8 +13,9 @@
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
-    "@pixi/sound": "^5.2.3",
-    "@tweenjs/tween.js": "18.3.1",
+    "@pixi/sound": "^6.0.1",
+    "@pixi/spine-pixi": "^2.1.1",
+    "@tweenjs/tween.js": "^23.1.3",
     "babel-loader": "^9.1.3",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
@@ -25,9 +26,8 @@
     "merge-jsons-webpack-plugin": "^1.0.21",
     "mini-css-extract-plugin": "^2.6.1",
     "pako": "^2.1.0",
-    "pixi-spine": "^4.0.3",
-    "pixi.js": "^7.2.4",
-    "platypus": "git+https://github.com/Makefully-Studios/Platypus.git#pixi7",
+    "pixi.js": "^8.5.2",
+    "platypus": "github:Makefully-Studios/Platypus#pixi8",
     "raw-loader": "^4.0.2",
     "source-map-loader": "^4.0.1",
     "springroll": "^2.6.0",

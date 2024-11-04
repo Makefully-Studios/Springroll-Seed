@@ -9,7 +9,7 @@ const os = require('os');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const deploy = path.join(__dirname, 'deploy');
-
+const webpack = require('webpack');
 
 module.exports = (env) => {
   const isProduction = !!env.production;
@@ -32,6 +32,9 @@ module.exports = (env) => {
       patterns: [
         { from: path.join(__dirname + '/static'), to: deploy }
       ]
+    }),
+    new webpack.DefinePlugin({
+      PRODUCTION: isProduction
     }),
     new ESLintPlugin()
   ];
