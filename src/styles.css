@@ -1,3 +1,5 @@
+@import '~platypus/src/platypus.css';
+
 body {
     margin: 0;
     padding: 0;
@@ -21,6 +23,8 @@ div#frame {
 
 div#content {
     position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 canvas#stage {
@@ -41,22 +45,6 @@ div#captions {
     color: white;
     line-height: 1.6em;
     pointer-events: none;
-    -webkit-touch-callout: none;
-    user-select: none;
-    cursor: default;
-}
-
-#framerate {
-    top: 0;
-    left: 0;
-    position: fixed;
-    pointer-events: none;
-    color: #fff;
-    font-size: 12px;
-    padding: 5px;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 2;
-    font-family: "Lucida Console", Monaco, monospace;
     -webkit-touch-callout: none;
     user-select: none;
     cursor: default;

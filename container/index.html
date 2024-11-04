@@ -23,15 +23,29 @@
         <script type="text/javascript" src="../node_modules/bellhop-iframe/dist/bellhop-umd.js"></script>
         <script type="text/javascript" src="../node_modules/springroll-container/dist/SpringRoll-Container-umd.js"></script>
         <script>
-            var container = new springroll.Container("#game", {
-                soundButton: '#sound',
-                captionsButton: '#captions',
-                voButton: '#vo',
-                musicButton: '#music',
-                sfxButton: '#sfx',
-                pauseButton: '#pause',
-                helpButton: '#help'
-            });
+            const
+                {UserDataPlugin, CaptionsTogglePlugin, Container, HelpPlugin, PausePlugin, SoundPlugin} = springroll,
+                container = new Container("#game", {
+                    plugins: [
+                        new UserDataPlugin(),    
+                        new CaptionsTogglePlugin('#captions'),
+                        new HelpPlugin('#help'),
+                        new PausePlugin('#pause'),
+                        new SoundPlugin({
+                            soundButtons: '#sound', // mutes or unmutes all game audio
+                            musicButtons: '#music', // mutes or unmutes the music
+                            voButtons: '#vo', // mutes or unmutes the voice over
+                            sfxButtons: '#sfx', // mutes or unmutes the game's sound effects
+
+                            // The sound button expects these to be HTML range inputs
+                            //soundSliders: '#soundSlider', // controls the game's audio volume
+                            //musicSliders: '#musicSlider', // controls the game's music volume
+                            //voSliders: '#voSlider', // controls the game's voice-over volume
+                            //sfxSliders: '#sfxSlider', // controls the game's sound effects volume
+                        }),
+                    ]
+                });
+                
             container.openPath("../deploy/index.html");
         </script>
     </body>
