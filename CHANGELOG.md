@@ -5,11 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2024-10-28
+
+### Changed
+
+- Updated node version to 20
+- Updated send to 0.19.0
+- Updated express to 4.21.1
+- Updated cookie to 0.7.1
+- Updated serve-static to 1.16.2
+- Updated body-parser to 1.20.3
+
+## [2.0.1] - 2024-06-11
+
+### Changed
+
+- added TerserPlugin options to webpack to drop `console.log` and `console.info` in production builds
+- added TerserPlugin options to webpack to maintain function names in debug builds
+
+- Pixi: added TerserPlugin options to webpack to drop `console.log` and `console.info` in production builds 
+- Pixi: added TerserPlugin options to webpack to maintain function names in debug builds
+
+- Phaser: added TerserPlugin options to webpack to drop `console.log` and `console.info` in production builds 
+- Phaser: added TerserPlugin options to webpack to maintain function names in debug builds
+
+- CreateJS: added TerserPlugin options to webpack to drop `console.log` and `console.info` in production builds 
+- CreateJS: added TerserPlugin options to webpack to maintain function names in debug builds
+
+## [2.0.0] - 2024-05-09
+
+### Changed
+
+- Pixi: Updated pixi.js to 8.1.0
+- Pixi: Updated @pixi/sound to 6.0.0
+- Pixi: Updated SpringRoll to 2.6.0
+- Pixi: Updated feature list and state listeners to follow a standardized set
+
+- Phaser: Updated Phaser to 3.80.1
+- Phaser: Fixed warning with SpringRoll listeners
+- Phaser: Updated SpringRoll to 2.6.0
+- Phaser: Updated feature list and state listeners to follow a standardized set
+
+- CreateJS: Updated SpringRoll to 2.6.0
+- CreateJS: Updated feature list and state listeners to follow a standardized set
+
+
 ## [1.3.1] - 2023-03-28
 
 ### Fixed
 
-- Removed incorrect references to non-NPM registry in package lock
+- Removed incorrect references to non-NPM registry in package-lock
+
+### Changed
+
+- Updated package-lock file to most recent versions
 
 ## [1.3.0] - 2023-03-13
 
@@ -19,15 +68,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All seed templates now target node 18.15.0
 - Added `<meta name="robots" content="noindex">` to all template html files to prevent Google indexing
 
-## [1.2.0] - 2022-12-21
+## [1.2.0] - 2022-12-12
 
 ### Changed
 
 - Updated webpack to 5.75.0
 - Updated webpack packages to match v5
 - Bump loader-utils from 2.0.3 to 2.0.4
-- updated PIXI to 7.0.4
-- updated PIXI Sound to 5.0.0
 
 ### Added
 
