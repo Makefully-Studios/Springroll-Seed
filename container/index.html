@@ -1,4 +1,157 @@
 <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style>
+
+    #springroll-settings {
+        display: none;
+    }
+
+    .game-meta {
+        position: fixed;
+        top: 0.2em;
+        right: 0.2em;
+    }
+
+    #general-settings, #springroll-settings.page-has-game {
+        display: inline;
+    }
+
+    .game-meta button {
+        padding: 0.4em;
+        margin: 0.1em;
+        min-width: 3em;
+        border: none;
+        height: 2em;
+        background: rgba(0, 0, 255, 0.1);
+        border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+        user-select: none;
+    }
+
+    .game-meta button.muted {
+        background: rgba(255, 0, 0, 0.2);
+    }
+
+    .game-meta button.unmuted {
+        background: rgba(0, 255, 0, 0.2);
+    }
+
+    .game-meta button.disabled {
+        background: rgba(128, 128, 128, 0.1);
+        color: #888;
+        pointer-events: none;
+    }
+
+    .game-meta button:active {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    button {
+        line-height: 1.2em;
+        font-weight: bold;
+        font-family: monospace;
+    }
+
+    #general-settings > button, #springroll-settings.page-has-game > button {
+        display: block;
+    }
+
+    #general-settings > button:first-of-type, #springroll-settings.page-has-game > button:first-of-type {
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+    }
+
+    #general-settings > button:last-of-type, #springroll-settings.page-has-game > button:last-of-type {
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+    }
+
+    #springroll-settings-panel label:has(input[style="display: none;"]) {
+        display: none;
+    }
+
+    #springroll-settings-panel h3 {
+        display: none;
+        text-align: center;
+        border-bottom: 1px solid white;
+        width: 20em;
+        margin: 1.5em auto 1em auto;
+    }
+
+    #springroll-settings-panel h3:has(~ label > input[style=""], ~ label > button[style=""], ~ label > input:not([style]), ~ label > button:not([style])) {
+        display: block;
+    }
+
+    #springroll-settings-panel {
+        display: none;
+        position: fixed;
+        top: 10%;
+        width: 30em;
+        margin-left: -15em;
+        left: 50%;
+        max-height: 80%;
+        overflow: auto;
+        background: #7FC9FF;
+        border-radius: 1em;
+        color: white;
+        font-size: 15px;
+        line-height: 1.7em;
+        border: 0.2em solid white;
+        box-shadow: 0 0.6em 0.2em rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+        font-family: monospace;
+        padding: 2em 0 1em 0;
+    }
+
+    #springroll-settings-panel h2 {
+        margin: 0 0 1em 0;
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    #springroll-settings-panel.panel-up {
+        display: block;
+    }
+
+    #springroll-settings-panel #springroll-settings-close {
+        position: absolute;
+        top: 0.2em;
+        right: 0.2em;
+        width: 2em;
+        border-radius: 1em;
+        background: rgba(255, 0, 0, 0.2);
+        margin: 0;
+    }
+
+    #springroll-settings-panel label {
+        display: block;
+        text-align: left;
+        width: 20em;
+        line-height: 1.7em;
+        margin: 0 auto 1em auto;
+    }
+
+    #springroll-settings-panel input, #springroll-settings-panel button {
+        width: 7em;
+        position: relative;
+        float: right;
+        margin: 0 1em;
+        height: 1.7em;
+    }
+
+    #springroll-settings-panel button {
+        width: 3em;
+        margin: 0 6.5em 0 0;
+        border-radius: 1em;
+        line-height: 0.8em;
+    }
+
+    #springroll-settings-panel input[type="radio"] {
+        width: 1.7em;
+    }
+        </style>
+    </head>
     <body style="
         padding: 0;
         margin: 0;
@@ -11,27 +164,217 @@
             position: absolute;
             border: 0;
         "></iframe>
-        
-        <button id="sound" style="position: absolute; bottom: 0; right: 0;">Sound</button>
-        <button id="captions" style="position: absolute; bottom: 0; right: 5em;">Captions</button>
-        <button id="vo" style="position: absolute; bottom: 0; right: 10em;">VO</button>
-        <button id="music" style="position: absolute; bottom: 0; right: 15em;">Music</button>
-        <button id="sfx" style="position: absolute; bottom: 0; right: 20em;">SFX</button>
-        <button id="pause" style="position: absolute; bottom: 0; right: 25em;">Pause</button>
-        <button id="help" style="position: absolute; bottom: 0; right: 30em;">Help</button>
+        <aside class="game-meta">
+            <div id="general-settings">
+                <button id="fullScreenButton" title="Full Screen">⛶</button>
+            </div>
+            <div id="springroll-settings">
+                <button id="springroll-settings-toggle" title="Game Options">⚙</button>
+                <button id="captions" title="Toggle Captions">CC</button>
+                <button id="help" title="Ask for Help">💡︎</button>
+                <section id="springroll-settings-panel">
+                    <h2>Game Options</h2>
+                    <button id="springroll-settings-close" title="Close Game Options">X</button>
 
+                    <div>
+                        <h3>Audio</h3>
+                        <button id="sound" title="Sound Mute">🕨</button>
+                        <label>Sound Volume <input id="soundSlider" type="range" min="0" max="1" /></label>
+                        <button id="music" title="Music Mute">🕨</button>
+                        <label>Music Volume <input id="musicSlider" type="range" min="0" max="1" /></label>
+                        <button id="vo" title="VO Mute">🕨</button>
+                        <label>VO Volume <input id="voSlider" type="range" min="0" max="1" /></label>
+                        <button id="sfx" title="SFX Mute">🕨</button>
+                        <label>SFX Volume <input id="sfxSlider" type="range" min="0" max="1" /></label>
+                    </div>
+                
+                    <div>
+                        <h3>Captions Size</h3>
+                        <label><input type="radio" name="captions-font-size" value="small" /> Small</label>
+                        <label><input type="radio" name="captions-font-size" value="medium" /> Medium</label>
+                        <label><input type="radio" name="captions-font-size" value="large" /> Large</label>
+                    </div>
+                
+                    <div>
+                        <h3>Captions Color</h3>
+                        <label><input type="radio" name="captions-font-color" value="default" /> Default</label>
+                        <label><input type="radio" name="captions-font-color" value="inverted" /> Inverted</label>
+                    </div>
+                
+                    <div>
+                        <h3>Captions Alignment</h3>
+                        <label><input type="radio" name="captions-alignment" value="top" /> Top</label>
+                        <label><input type="radio" name="captions-alignment" value="bottom" /> Bottom</label>
+                    </div>
+                
+                    <div>
+                        <h3>Play</h3>
+                        <label>Hit Area <input id="hitAreaScaleSlider" type="range" min="0" max="1" /></label>
+                        <label>Drag Threshold<input id="dragThresholdScaleSlider" type="range" min="0" max="1" /></label>
+                        <label>Health<input id="healthSlider" type="range" min="0" max="1" /></label>
+                        <label>Object Count<input id="objectCountSlider" type="range" min="0" max="1" /></label>
+                        <label>Completion Percentage<input id="completionPercentageSlider" type="range" min="0" max="1" /></label>
+                        <label>Speed<input id="speedScaleSlider" type="range" min="0" max="1" /></label>
+                        <label>Timers<input id="timersScaleSlider" type="range" min="0" max="1" /></label>
+                        <label>Input Count<input id="inputCountSlider" type="range" min="0" max="1" /></label>
+                        <label>Button<input id="button-slider-selector" type="range" min="0" max="1" /></label>
+                        <label>Pointer<input id="pointer-slider-selector" type="range" min="0" max="1" /></label>
+                        <label>Layers<input id="layers-slider-selector" type="range" min="0" max="1" /></label>
+                        <label>Sensitivity<input id="sensitivity-slider-selector" type="range" min="0" max="1" /></label>
+                    </div>
+                
+                    <div id="hud-position-button-selector">
+                        <h3>HUD Position</h3>
+                        <label><input type="radio" name="hud-position" value="top" /> Top</label>
+                        <label><input type="radio" name="hud-position" value="bottom" /> Bottom</label>
+                        <label><input type="radio" name="hud-position" value="left" /> Left</label>
+                        <label><input type="radio" name="hud-position" value="right" /> Right</label>
+                    </div>
+                
+                    <div id="color-vision-radios">
+                        <h3>Vision</h3>
+                        <label><input type="radio" name="color-vision-radios" value="none" /> None</label>
+                        <label><input type="radio" name="color-vision-radios" value="achromatopsia" /> Achromatopsia</label>
+                        <label><input type="radio" name="color-vision-radios" value="tritanopia" /> Tritanopia</label>
+                        <label><input type="radio" name="color-vision-radios" value="deuteranopia" /> Deuteranopia</label>
+                        <label><input type="radio" name="color-vision-radios" value="protanopia" /> Protanopia</label>
+                    </div>
+                
+                    <div id="key-container">
+                        <h3>Controls</h3>
+                        <!--
+                        <label for="keyBoardMapPlugin-Up">Up</label>
+                        <button class="springrollContainerKeyBinding__button" value="Up" id="keyBoardMapPlugin-Up">w</button>
+                        <label for="keyBoardMapPlugin-Down">Down</label>
+                        <button class="springrollContainerKeyBinding__button" value="Down"id="keyBoardMapPlugin-Down">s</button>
+                        -->
+                    </div>
+                </section>
+            </div>
+        </aside>
+        
         <script type="text/javascript" src="../node_modules/bellhop-iframe/dist/bellhop-umd.js"></script>
         <script type="text/javascript" src="../node_modules/springroll-container/dist/SpringRoll-Container-umd.js"></script>
         <script>
-            var container = new springroll.Container("#game", {
-                soundButton: '#sound',
-                captionsButton: '#captions',
-                voButton: '#vo',
-                musicButton: '#music',
-                sfxButton: '#sfx',
-                pauseButton: '#pause',
-                helpButton: '#help'
+            const
+                {
+                    UserDataPlugin,
+                    CaptionsTogglePlugin,
+                    CaptionsStylePlugin,
+                    Container,
+                    HelpPlugin,
+                    PausePlugin,
+                    SoundPlugin,
+                    HitAreaScalePlugin,
+                    DragThresholdScalePlugin,
+                    HealthPlugin,
+                    ObjectCountPlugin,
+                    CompletionPercentagePlugin,
+                    SpeedScalePlugin,
+                    TimersScalePlugin,
+                    InputCountPlugin,
+                    ButtonSizePlugin,
+                    PointerSizePlugin,
+                    LayersPlugin,
+                    HUDPlugin,
+                    ControlSensitivityPlugin,
+                    KeyboardMapPlugin,
+                    ColorVisionPlugin,
+                    FullScreenPlugin
+                } = springroll,
+                container = new Container("#game", {
+                    plugins: [
+                        new UserDataPlugin(),    
+
+                        new HelpPlugin('#help'),
+                        new PausePlugin('#pause'),
+
+                        new CaptionsTogglePlugin('#captions'),
+                        new CaptionsStylePlugin(
+                            'input[name=captions-font-size]',
+                            'input[name=captions-font-color]',
+                            'input[name=captions-alignment]',
+                        ),
+
+                        new SoundPlugin({
+                            soundButtons: '#sound', // mutes or unmutes all game audio
+                            musicButtons: '#music', // mutes or unmutes the music
+                            voButtons: '#vo', // mutes or unmutes the voice over
+                            sfxButtons: '#sfx', // mutes or unmutes the game's sound effects
+                            soundSliders: '#soundSlider', // controls the game's audio volume
+                            musicSliders: '#musicSlider', // controls the game's music volume
+                            voSliders: '#voSlider', // controls the game's voice-over volume
+                            sfxSliders: '#sfxSlider', // controls the game's sound effects volume
+                        }),
+
+                        new HitAreaScalePlugin('#hitAreaScaleSlider'),
+                        new DragThresholdScalePlugin('#dragThresholdScaleSlider'),
+                        new HealthPlugin('#healthSlider'),
+                        new ObjectCountPlugin('#objectCountSlider'),
+                        new CompletionPercentagePlugin('#completionPercentageSlider'),
+                        new SpeedScalePlugin('#speedScaleSlider'),
+                        new TimersScalePlugin('#timersScaleSlider'),
+                        new InputCountPlugin('#inputCountSlider'),
+
+                        new ButtonSizePlugin('#button-slider-selector', {
+                            defaultButtonSize: 0.5, // button size goes from 0.0 to 1.0. Default = 0.5
+                        }),
+                        new PointerSizePlugin('#pointer-slider-selector', {
+                            defaultPointerSize: 0.5, //pointer size goes from 0.0 to 1.0. Default = 0.5
+                        }),
+                        new LayersPlugin('#layers-slider-selector', {
+                            defaultValue: 0 // goes from 0.0 to 1.0
+                        }),
+
+                        new HUDPlugin('input[name=hud-position]', {
+                            defaultValue: "top" //the initial starting value, defaults to "top"
+                        }),
+
+                        new ControlSensitivityPlugin('#sensitivity-slider-selector', {
+                            defaultSensitivity: 0.5, //control sensitivity goes from 0.0 to 1.0. Default = 0.5
+                        }),
+
+                        new KeyboardMapPlugin('#key-container', {
+                            //you can provide a custom classname that will be attached to each key button that is generated
+                            customClassName: 'custom-button-class' //default='springrollContainerKeyBinding__button'.
+                        }),
+
+                        new ColorVisionPlugin('input[name=color-vision-radios]', {
+                            defaultValue: 'none' // initial checked radio box, defaults to "none"
+                        }),
+
+                        new FullScreenPlugin('#fullScreenButton')
+                    ]
+                });
+                
+           container.client.on('loaded', (a) => {
+                document.getElementById('springroll-settings').classList.add('page-has-game');
             });
+
+            // clean up unused plugins
+            container.client.on('features', (features) => {
+                if (!features.data || !features.data.hudPosition) {
+                    document.getElementById('hud-position-button-selector').style.display = 'none';
+                }
+                if (!features.data || !features.data.colorVision) {
+                    document.getElementById('color-vision-radios').style.display = 'none';
+                }
+            });
+
+            {
+                const
+                    panelClassList = document.getElementById('springroll-settings-panel').classList,
+                    toggle = () => {
+                        if (panelClassList.contains('panel-up')) {
+                            panelClassList.remove('panel-up');
+                        } else {
+                            panelClassList.add('panel-up');
+                        }
+                    };
+
+                document.getElementById('springroll-settings-toggle').addEventListener('pointerup', toggle);
+                document.getElementById('springroll-settings-close').addEventListener('pointerup', toggle);
+            }
             container.openPath("../deploy/index.html");
         </script>
     </body>
