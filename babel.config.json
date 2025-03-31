@@ -4,12 +4,9 @@
       "@babel/preset-env",
       {
         "targets": {
-          "android": 4,
-          "ios": 8,
-          "ie": 11
-        },
-        "useBuiltIns": "entry",
-        "corejs": 3
+          "android": 133,
+          "ios": 11
+        }
       }
     ]
   ]
