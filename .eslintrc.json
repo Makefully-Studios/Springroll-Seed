@@ -5,6 +5,9 @@
         "node": true
     },
     "extends": "eslint:recommended",
+    "globals": {
+        "PRODUCTION": true
+    },
     "overrides": [
     ],
     "parserOptions": {

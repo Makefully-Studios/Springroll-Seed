@@ -117,7 +117,35 @@ const game = new Game(config, {
     },
     name: packageData.name,
     version: packageData.version,
-    dev: true
+    dev: PRODUCTION === false,
+    features: {
+        sfx: true,
+        vo: true,
+        music: true,
+        sound: true,
+        captions: true,
+        captionStyles: true,
+        soundVolume: true,
+        musicVolume: true,
+        sfxVolume: true,
+        voVolume: true
+    },
+    beforeReady (game) {
+        const
+            {springroll} = game,
+            {state} = springroll,
+            styles = {};
+
+        //Caption Styles
+        state.captionsStyles.subscribe((opts) => {
+            const
+                {classList} = document.getElementById('captions');
+
+            Object.keys(styles).forEach((key) => styles[key] = false);
+            Object.keys(opts).forEach((key) => styles[`${key}-${opts[key]}`] = true);
+            Object.keys(styles).forEach((key) => styles[key] ? classList.add(key) : classList.remove(key));
+        });
+    }
 }, () => {
     platypus.debug.log('game loaded');
 });
