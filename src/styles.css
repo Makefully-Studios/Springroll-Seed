@@ -40,15 +40,17 @@ div#captions {
     right: 25vw;
     text-align: center;
     z-index: 2;
-    font-size: 1vw;
+    font-size: 1.9vw;
     background: rgba(0, 0, 0, 0.6);
     color: white;
-    line-height: 2vw;
+    line-height: 3vw;
     pointer-events: none;
     -webkit-touch-callout: none;
     user-select: none;
     cursor: default;
     border-radius: 0.6vw;
+    padding: 0.5vw;
+    visibility: hidden;
 }
 
 div#captions.background-black {background: rgba(0, 0, 0, 0.6);}
@@ -60,5 +62,5 @@ div#captions.font-arial {font-family: Arial, Helvetica, sans-serif;}
 div#captions.align-bottom {top: initial; bottom: 1vh;}
 div#captions.align-top {top: 1vh; bottom: initial;}
 div#captions.size-small {font-size: 1vw; line-height: 2vw;}
-div#captions.size-medium {font-size: 2vw; line-height: 4vw;}
-div#captions.size-large {font-size: 3vw; line-height: 6vw;}
+div#captions.size-medium {font-size: 1.9vw; line-height: 3vw;}
+div#captions.size-large {font-size: 3vw; line-height: 4.5vw;}
