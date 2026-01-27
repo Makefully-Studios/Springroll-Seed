@@ -8,9 +8,7 @@ const
     config = {
         entities: {},
         levels: {},
-        spriteSheets: {},
-        atlases: {},
-        skeletons: {}
+        spriteSheets: {}
     },
     flatten = {
         entities: true,
@@ -63,13 +61,6 @@ const
         if (fullName && fullName !== fileName) {
             props[fullName] = result;
         }
-    }),
-    importTEXT = (r, config) => r.keys().forEach((key) => {
-        const
-            arr = key.split('/'),
-            last = arr[arr.length - 1];
-        
-        config[last.substring(0, last.length - 6)] = r(key).default;
     });
 
 // Base configuration
@@ -93,20 +84,6 @@ importJS(require.context(
     true, // include subdirectories
     /.*\.json/ // RegExp
   ), config.levels);
-
-  // spine skeleton files
-importJS(require.context(
-    "../assets/spine/", // context folder
-    true, // include subdirectories
-    /.*\.json/ // RegExp
-  ), config.skeletons);
-
-// spine atlas files
-importTEXT(require.context(
-    "../assets/spine/", // context folder
-    true, // include subdirectories
-    /.*\.atlas/ // RegExp
-  ), config.atlases);
 
 const game = new Game(config, {
     canvasId: 'stage',
