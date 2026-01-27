@@ -37,7 +37,8 @@ module.exports = (env) => {
       PRODUCTION: isProduction
     }),
     new ESLintPlugin()
-  ];
+  ],
+  start = new Date();
 
   // Get running network information
   let networkInfo = os.networkInterfaces();
@@ -55,6 +56,8 @@ module.exports = (env) => {
   } else  if (networkInfo.eth0){
     ipAddress = networkInfo.eth0[1].address;
   }
+
+  console.log(`\x1b[33m${start.toLocaleString()}\x1b[0m`);
   
   if (ipAddress) {
     console.log('\x1b[36m%s\x1b[0m', "NETWORK HOST: http://" + ipAddress + ":8080") 
@@ -71,11 +74,15 @@ module.exports = (env) => {
         }
     },
     devServer: {
-      open: true,
-      client: { overlay: true },
+      client: {
+        overlay: true,
+      },
       host: '0.0.0.0',
       port: 8080,
-      static: path.join(__dirname, '/static')
+      static: {
+        directory: path.join(__dirname, '/static'),
+      },
+      hot: true,
     },
     context: path.resolve(__dirname, 'src'),
 
